@@ -1,14 +1,22 @@
-name: Install required packages
-hosts: 
-vars:
-  packages:
-    - java
-    -tomcat
+-
+  name: Install required packages
+  hosts:  192.168.7.157
+  vars:
+    packages:
+      - java
+      -tomcat
     
     
-tasks:
-  -
-    yum:
-      name: "{{ item }}"
-      state: present
-    with_items: "{{ packages }}"
+  tasks:
+    -
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ packages }}"
+-
+  name: download jenkins war
+  hosts: 192.168.7.157
+  get_url:
+    url: http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+    dest: /tmp/
+    
