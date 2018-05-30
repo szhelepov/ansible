@@ -1,0 +1,3 @@
+#Web server
+
+jmx ansible_host=192.168.7.157 ansible_connection=ssh ansible_user=root
