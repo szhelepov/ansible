@@ -1,0 +1,10 @@
+---
+- name: Install tomcat and java
+  hosts: 192.168.7.157
+  remote_user: root
+  
+  
+  
+  roles: 
+    - java
+    - tomcat
