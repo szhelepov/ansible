@@ -1,0 +1,14 @@
+name: Install required packages
+hosts: 
+vars:
+  packages:
+    - java
+    -tomcat
+    
+    
+tasks:
+  -
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items: "{{ packages }}"
