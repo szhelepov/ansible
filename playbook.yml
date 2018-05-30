@@ -4,8 +4,8 @@
   vars:
     packages:
       - java
-      -tomcat
--
+      - tomcat
+
   name: download jenkins war
   hosts: 192.168.7.157
   get_url:
@@ -22,7 +22,7 @@
       
     - 
       name: Start tomcat service
-        service:
+      service:
           name: tomcat
           state: present
 
