@@ -1,0 +1,6 @@
+---
+- name: Install tomcat package
+  yum: name={{ item }} state=prresent
+  with_items:
+    - tomcat
+    
