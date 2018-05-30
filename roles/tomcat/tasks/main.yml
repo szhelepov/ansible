@@ -4,3 +4,5 @@
   with_items:
     - tomcat
     
+- name: start tomcat service
+  service: name=tomcat state=started enabled=yes
