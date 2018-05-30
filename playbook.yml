@@ -5,7 +5,13 @@
     packages:
       - java
       -tomcat
-    
+-
+  name: download jenkins war
+  hosts: 192.168.7.157
+  get_url:
+    url: http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+    dest: /tmp/
+      
     
   tasks:
     -
@@ -13,10 +19,15 @@
         name: "{{ item }}"
         state: present
       with_items: "{{ packages }}"
--
-  name: download jenkins war
-  hosts: 192.168.7.157
-  get_url:
-    url: http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-    dest: /tmp/
-    
+      
+    - 
+      name: Start tomcat service
+        service:
+          name: tomcat
+          state: present
+
+    -
+      jenkins:
+        src: /tmp/jenkins.war
+        deployment: jenkins.war
+        state: present
