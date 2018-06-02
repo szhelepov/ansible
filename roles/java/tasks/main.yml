@@ -1,0 +1,6 @@
+---
+- name: Install tomcat package
+  yum: name={{ item }}
+  with_items:
+    - java
+    
