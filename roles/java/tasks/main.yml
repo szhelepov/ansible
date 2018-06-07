@@ -1,6 +1,18 @@
 ---
-- name: Install java package
-  yum: name={{ item }}
-  with_items:
-    - java
-    
+#- name: Install java package
+#  yum: name={{ item }}
+#  with_items:
+#    - java
+
+
+# Setup/install tasks
+- include_tasks: setup-centos.yml
+  when: ansible_os_family == 'RedHat'
+
+# Environment setup.
+- name: Set JAVA_HOME if configured.
+  template:
+    src: java_home.sh.j2
+    dest: /etc/profile.d/java_home.sh
+    mode: 0644
+  when: java_home is defined and java_home != ''
