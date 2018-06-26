@@ -1,10 +1,40 @@
 ---
-- name: Install tomcat and java
-  hosts: 192.168.7.157
-  remote_user: root
-  
-  
-  
-  roles: 
-    - java
-    - tomcat
+- hosts: all
+  become: yes
+  become_user: root
+  tasks:
+        - name: "Install java"
+          yum:
+                name: java
+                state: present
+                update_cache: yes
+
+        - name: "Install tomcat"
+          yum:
+                 #name: tomcat,tomcat-webapps,tomcat-admin-webapps
+                 name: tomcat
+                 state: present
+                 update_cache: yes
+
+        - name: "Configure tomcat port"
+          shell: sed -i 's/8080/{{ tomcat_port }}/g' /etc/tomcat/server.xml
+
+
+        - name: "Install wget"
+          yum:
+                 name: wget
+                 state: present
+                 update_cache: yes
+
+        - name: "Fetch jenkins.war"
+          shell: cd /var/lib/tomcat/webapps && wget https://updates.jenkins-ci.org/latest/jenkins.war
+
+
+        - name: "Prepare firewall"
+          shell: firewall-cmd --permanent --new-service=tomcat && firewall-cmd --permanent --service=tomcat --set-short="tomcat Service Ports" && firewall-cmd --permanent --service=tomcat --set-description="tomcat service firewalld port exceptions" && firewall-cmd --permanent --service=tomcat --add-port={{ tomcat_port }}/tcp && firewall-cmd --permanent --add-service=tomcat && firewall-cmd --zone=public --add-service=http --permanent && firewall-cmd --reload
+
+        - name: "Start and enable tomcat by default"
+          shell: service tomcat start && chkconfig tomcat on
+
+        - name: "Jenkins permissions ugly kostyling"
+shell: usermod jenkins -G tomcat,jenkins,wheel && sudo -u tomcat mkdir /usr/share/tomcat/.jenkins && chmod 766 /usr/share/tomcat/.jenkins
