@@ -20,12 +20,7 @@
           shell: sed -i 's/8080/{{ tomcat_port }}/g' /etc/tomcat/server.xml
 
 
-        - name: "Install wget"
-          yum:
-                 name: wget
-                 state: present
-                 update_cache: yes
-
+       
         - name: "Fetch jenkins.war"
           shell: cd /var/lib/tomcat/webapps && wget https://updates.jenkins-ci.org/latest/jenkins.war
 
@@ -36,5 +31,4 @@
         - name: "Start and enable tomcat by default"
           shell: service tomcat start && chkconfig tomcat on
 
-        - name: "Jenkins permissions ugly kostyling"
-shell: usermod jenkins -G tomcat,jenkins,wheel && sudo -u tomcat mkdir /usr/share/tomcat/.jenkins && chmod 766 /usr/share/tomcat/.jenkins
+      
