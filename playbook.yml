@@ -14,7 +14,7 @@
       
     - name: Install and start tomcat service
       yum:
-      name: tomcat
+        name: tomcat
       service:
           name: tomcat
           state: present
@@ -27,8 +27,8 @@
     
     - name: "Install Jenkins"
       yum:
-      name: jenkins
-      state: present
+        name: jenkins
+        state: present
     
     - name: "Start Jenkins"
       service: name="jenkins" state="started"
