@@ -16,8 +16,8 @@
                  state: present
                  update_cache: yes
 
-        - name: "Configure tomcat port"
-          shell: sed -i 's/8080/{{ tomcat_port }}/g' /etc/tomcat/server.xml
+       # - name: "Configure tomcat port"
+       #   shell: sed -i 's/8080/{{ tomcat_port }}/g' /etc/tomcat/server.xml
 
 
        
