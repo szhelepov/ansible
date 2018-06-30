@@ -15,13 +15,9 @@
   - name: Install tomcat
     yum:
       name: tomcat
-     # state: restart
-      
-   - name: Start tomcat
-     service:
-      name: tomcat
       state: present
-    
+      
+     
   - name: "Add Jenkins repository"
     get_url: url="http://pkg.jenkins-ci.org/redhat/jenkins.repo" dest="/etc/yum.repos.d/jenkins.repo"
 
