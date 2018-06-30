@@ -3,7 +3,7 @@
   hosts:  all
   connection: ssh
   remote_user: root
-  become; yes
+  become: yes
   become_method: sudo 
     
   tasks:
