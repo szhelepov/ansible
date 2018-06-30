@@ -8,27 +8,27 @@
     
   tasks:
   - name: install java
-      yum:
-        name: java
-        state: present
+     yum:
+       name: java
+       state: present
       
   - name: Install and start tomcat service
-      yum:
-        name: tomcat
-      service:
-          name: tomcat
-          state: present
+     yum:
+       name: tomcat
+     service:
+         name: tomcat
+         state: present
     
   - name: "Add Jenkins repository"
-      get_url: url="http://pkg.jenkins-ci.org/redhat/jenkins.repo" dest="/etc/yum.repos.d/jenkins.repo"
+     get_url: url="http://pkg.jenkins-ci.org/redhat/jenkins.repo" dest="/etc/yum.repos.d/jenkins.repo"
 
   - name: "Import Jenkins key"
-      command: "rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key"
+     command: "rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key"
     
   - name: "Install Jenkins"
-      yum:
-        name: jenkins
-        state: present
+     yum:
+       name: jenkins
+       state: present
     
   - name: "Start Jenkins"
-      service: name="jenkins" state="started"
+     service: name="jenkins" state="started"
